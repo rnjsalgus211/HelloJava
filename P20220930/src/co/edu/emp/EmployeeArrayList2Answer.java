@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 //컬렉션(ArrayList)을 활용해서 데이터를 저장하는 기능을 가지고있다.
-public class EmployeeArrayList implements EmployeeService {
+public class EmployeeArrayList2Answer implements EmployeeService {
 	ArrayList<Employee> list;
 	int idx = 0;
 	Scanner scn = new Scanner(System.in);
@@ -17,50 +17,28 @@ public class EmployeeArrayList implements EmployeeService {
 
 	@Override
 	public void input() {
+		//사번 입력 & 예외처리
 		System.out.println("사원을 등록합니다.");
-
-		System.out.print("사번>>  ");
-		int eId = -1;
-		while (true) {
-			try {
-				eId = Integer.parseInt(scn.nextLine());
-				break;
-			} catch (NumberFormatException e) {
-				System.out.println("사원번호를 확인하세요.");
-				System.out.print("사번>>  ");
-			}
-		}
+		int eId = readInt("사번>>  ");
 		System.out.print("이름>>  ");
 		String name = scn.nextLine();
+		
 
-		System.out.print("급여>>  ");
-		int sal = -1;
-		while (true) {
-			try {
-				sal = Integer.parseInt(scn.nextLine());
-				break;
-			} catch (NumberFormatException e) {
-				System.out.println("급여를 확인하세요.");
-				System.out.print("급여>>  ");
-			}
-		}
-
-		System.out.print("부서번호>>  ");
 		int deptId = -1;
-		while (true) {
+		while(true) {
+			deptId = readInt("부서>>  ");
 			try {
-				deptId = Integer.parseInt(scn.nextLine());
+				validDept(deptId);
 				break;
-			} catch (NumberFormatException e) {
-				System.out.println("부서번호를 확인하세요.");
-				System.out.println("부서번호>>");
+			}catch(InvalidDeptException e1) {
+				System.out.println(e1.getMessage());
 			}
 		}
-		System.out.print("이메일>>  ");
-		String email = scn.nextLine();
+		//급여 & 예외처리
+		int sal = readInt("급여>>  ");
 		System.out.println("사원 등록이 완료되었습니다.");
 
-		Employee empList = new Employee(eId, name, sal, deptId, email);
+		Employee empList = new Employee(eId, name, sal, deptId);
 
 		list.add(empList);
 	}
@@ -111,5 +89,32 @@ public class EmployeeArrayList implements EmployeeService {
 		}
 		return sal;
 	}
+		
+	public void validDept(int dept) throws InvalidDeptException{
+		int validDept = dept %10;
+		if (validDept !=0 || dept>30) {
+			throw new InvalidDeptException("잘못된 부서정보입니다.");
+		}
+		
+	}
+	
+	
+	//예외처리가 반복되면 메소드로 묶어서 사용하자......................
+	public int readInt(String msg) {
+		int result = -1;
+		while(true) {
+			System.out.println(msg);
+			try {
+				result = Integer.parseInt(scn.nextLine());
+				break;
+			}catch (NumberFormatException e) {
+				System.out.println("숫자를 입력하세요.");
+			}
+		}
+		return result;
+	}
+	
+	
+	
 
 }
