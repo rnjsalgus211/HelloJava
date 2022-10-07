@@ -13,3 +13,4 @@ public class KeyboardToStringExample {
 		System.out.println(str);
 	}
 }
+

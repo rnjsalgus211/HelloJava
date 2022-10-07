@@ -20,6 +20,7 @@ public class StringGetBytesExample {
 			System.out.println("byes2->String: " + str2);
 			
 			byte[] bytes3 = str.getBytes("UTF-8");
+			
 			System.out.println("bytes3.length: "+ bytes3.length);
 			String str3 = new String(bytes3, "UTF-8");
 			System.out.println("bytes3->String: " + str3);

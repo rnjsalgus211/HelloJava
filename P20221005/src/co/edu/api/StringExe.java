@@ -21,40 +21,30 @@ public class StringExe {
 				String str = scn.nextLine();
 				if (str == null)
 					break;
+				String firstNum = str.substring(2,4);
+				int num1 = Integer.parseInt(firstNum);
+				String firstNum2 = str.substring(4,6);
+				int num2 = Integer.parseInt(firstNum2);
+					
+			if (num1>12) {//년도, 월, 일 잘못되면 잘못된 번호라고 인식하게 	
+				System.out.println("월 값을 확인하세요.");
+			}else if (num2>31) {
+				System.out.println("날짜를 확인하세요.");
+			}
 				System.out.print(str);
 
-				str = str.replace(" ", "");
-				str = str.replace("-", "");
-				char charValue = str.charAt(6);
-
-				switch (charValue) {
-				case '1':
-				case '3':
-					System.out.println(" >> 남자입니다");
-					break;
-				case '2':
-				case '4':
-					System.out.println(" >> 여자입니다");
-					break;
-				default:
-					System.out.println("잘못된 값을 입력하였습니다.");
-					break;
-				}
-
 				// 교수님 방법
-//			if (str.replace("-","").charAt(6)%2==1){
-//				System.out.println("남자입니다.");   
-//			}else if (str.replace("-","").charAt(6)%2==0){
-//				System.out.println("여자입니다.");
-//
-//			}else if () {//년도, 월, 일 잘못되면 잘못된 번호라고 인식하게
-//			}
+			if (str.replace("-","").charAt(6)%2==1){
+				System.out.println("남자입니다.");   
+			}else if (str.replace("-","").charAt(6)%2==0){
+				System.out.println("여자입니다.");
+			}
 
-//			if(str.indexOf(searchKey)!= -1) {
-//			System.out.println(str);
-//			}else {
-////				System.out.println("");
-//			}
+			if(str.indexOf(searchKey)!= -1) {
+			System.out.println(str);
+			}else {
+				System.out.println("");
+			}
 			}
 		} catch (
 
@@ -67,3 +57,22 @@ public class StringExe {
 		System.out.println("end of prog");
 	}
 }
+
+
+//str = str.replace(" ", "");
+//str = str.replace("-", "");
+//char charValue = str.charAt(6);
+//
+//switch (charValue) {
+//case '1':
+//case '3':
+//	System.out.println(" >> 남자입니다");
+//	break;
+//case '2':
+//case '4':
+//	System.out.println(" >> 여자입니다");
+//	break;
+//default:
+//	System.out.println("잘못된 값을 입력하였습니다.");
+//	break;
+//}
