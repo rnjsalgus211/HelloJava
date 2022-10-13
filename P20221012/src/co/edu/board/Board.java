@@ -1,6 +1,8 @@
 package co.edu.board;
 
 public class Board {
+	private String userId;
+	private String passwd;
 	private int bNum;
 	private String bTitle;
 	private String bContent;
@@ -8,10 +10,11 @@ public class Board {
 	private String cDate;
 	private int bCnt;
 	
-	public Board() {
-		
+
+	public Board (int bNum, String bContent) {
+		this.bNum = bNum;
+		this.bContent = bContent;
 	}
-	
 	public Board (int bNum, String bTitle, String bWriter, String cDate) {
 		this.bNum = bNum;
 		this.bTitle = bTitle;
@@ -19,6 +22,18 @@ public class Board {
 		this.cDate = cDate;
 		
 		
+	}
+	public Board(String userId, String passwd, int bNum, String bTitle, String bContent, String bWriter, String cDate,
+			int bCnt) {
+		super();
+		this.userId = userId;
+		this.passwd = passwd;
+		this.bNum = bNum;
+		this.bTitle = bTitle;
+		this.bContent = bContent;
+		this.bWriter = bWriter;
+		this.cDate = cDate;
+		this.bCnt = bCnt;
 	}
 	public Board (int bNum, String bTitle, String bContent, String bWriter, String cDate, int bCnt ) {
 		this.bNum = bNum;
@@ -31,6 +46,18 @@ public class Board {
 		
 	}
 
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public String getPasswd() {
+		return passwd;
+	}
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
 	public int getbNum() {
 		return bNum;
 	}
@@ -84,6 +111,10 @@ public class Board {
 		return "글번호: " +bNum+ ", 글제목: "+bTitle+ ", 글내용: "+bContent//
 				+", 작성자: " +bWriter+", 작성일시: "+cDate+", 읽은 횟수: " + bCnt;
 		
+	}
+	
+	public String toDetail() {
+		return "글번호: " +bNum+", 글제목: " +bTitle+ " 작성자: "+bWriter+" 작성일시: "+ cDate;
 	}
 	
 	
