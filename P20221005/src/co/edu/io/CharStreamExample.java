@@ -36,7 +36,7 @@ public class CharStreamExample {
 
 	}
 
-	public static void wirte() {
+	public static void write() {
 		Scanner scn = new Scanner(System.in);
 
 		// 문자기반 스트림 생성. Reader/ Writer. 읽고 쓰기 가능
