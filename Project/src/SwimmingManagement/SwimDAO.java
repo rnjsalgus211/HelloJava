@@ -34,12 +34,11 @@ public class SwimDAO extends DAO {
 	// 추가
 	public void insert(Swim sw) {
 		System.out.println(sw);
-		String sql = "insert into userInfo (user_seq, user_name, user_age, user_phone, payment, course, creation_date)\r\n"
+		String sql = "insert into userInfo (user_seq, user_name, user_age, user_phone, course, creation_date)\r\n"
 				+ "values(user_sequ.nextval, '" 
 				+ sw.getUserName() + "', '" 
 				+ sw.getUserAge() + "', '"
 				+ sw.getPhoneNum() + "', '" 
-				+ sw.getPayment() + "', '"
 				+ sw.getCourse() + "', sysdate)";
 		System.out.println(sql);
 		conn = getConnect();
@@ -63,7 +62,7 @@ public class SwimDAO extends DAO {
 
 		try {
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select * from userInfo");
+			rs = stmt.executeQuery("select * from userInfo order by user_seq");
 			while (rs.next()) {
 				list.add(new Swim(rs.getInt("user_seq")//
 						, rs.getString("user_name"), rs.getString("user_age")
@@ -90,7 +89,6 @@ public class SwimDAO extends DAO {
 							, rs.getString("user_name")
 							,rs.getString("user_age")
 							,rs.getString("user_phone")
-							,rs.getInt("payment")
 							,rs.getString("course")
 							,rs.getString("creation_date"));
 			}
@@ -155,7 +153,6 @@ public class SwimDAO extends DAO {
 				+ " set user_name= ?, "
 				+ "	   user_age = ?, "
 				+ "    user_phone = ?, "	
-				+ "    payment = ?, "
 				+ "    course = ?, "
 				+ "creation_date = ? "
 				+ "where user_seq = ?";	
@@ -165,10 +162,9 @@ public class SwimDAO extends DAO {
 			psmt.setString(1, sw.getUserName());
 			psmt.setString(2, sw.getUserAge());
 			psmt.setString(3, sw.getPhoneNum());
-			psmt.setInt(4, sw.getPayment());
-			psmt.setString(5, sw.getCourse());
-			psmt.setString(6, sw.getcDate());
-			psmt.setInt(7, sw.getUserSeq());
+			psmt.setString(4, sw.getCourse());
+			psmt.setString(5, sw.getcDate());
+			psmt.setInt(6, sw.getUserSeq());
 			
 			int r = psmt.executeUpdate();
 			System.out.println(r + "건 변경됨.");
