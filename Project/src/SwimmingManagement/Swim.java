@@ -6,21 +6,10 @@ public class Swim {
 	private String userName;
 	private String userAge;
 	private String phoneNum;
-	private String cDate;
 	private int payment;
 	private String course;
-	
-//	private String tName;
-//	private String tSex;
-//	private String tUni;
-//	
-//	public Swim(String tName, String tSex, String tUni, String course) {
-//		this.tName = tName;
-//		this.tSex = tSex;
-//		this.tUni = tUni;
-//		this.course = course;
-//	}
-//	
+	private String cDate;
+
 	public Swim(int userSeq, String userName, String userAge, String course, String cDate) {
 		this.userSeq = userSeq;
 		this.userName = userName;
@@ -76,6 +65,7 @@ public class Swim {
 		this.phoneNum = phoneNum;
 	}
 
+
 	public String getcDate() {
 		return cDate;
 	}
@@ -110,9 +100,5 @@ public class Swim {
 				+ " 전화번호:" +phoneNum+ " 등록일시:" +cDate
 				+" 수강료 납부:"+payment+ "만원"+" 소속 반:" + course; 
 	}
-	
-//	public String tInfo() {
-//		return "강사명:" + tName +" 성별:" + tSex + " 학교 및 학과:" +tUni+ "담당 반:" +course;
-//	}
 
 }

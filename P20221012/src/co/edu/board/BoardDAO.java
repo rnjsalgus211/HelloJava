@@ -36,7 +36,8 @@ public class BoardDAO extends DAO {
 	// 추가Create
 	public void insert(Board brd) {
 		System.out.println(brd);
-		String sql = "insert into board (board_num, board_title, board_content, board_writer)\r\n" + "values("
+		String sql = "insert into board (board_num, board_title, board_content, board_writer)\r\n"
+				+ "values("
 				+ brd.getbNum()//
 				+ ", '" + brd.getbTitle()//
 				+ "', '" + brd.getbContent()//

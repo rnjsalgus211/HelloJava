@@ -70,7 +70,6 @@ public class SwimDAO extends DAO {
 						,rs.getString("course"), rs.getString("creation_date")));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
 		} finally {
 			disconnect();
 		}
@@ -102,27 +101,53 @@ public class SwimDAO extends DAO {
 		}
 		return sw;
 	}
-	//강사조회
-//	public List<Swim> tInfo(){
-//		conn = getConnect();
-//		List<Swim> list1 = new ArrayList<>();
-//
-//		try {
-//			stmt = conn.createStatement();
-//			rs = stmt.executeQuery("select * from teachers");
-//			while (rs.next()) {
-//				list1.add(new Swim(rs.getString("teacher_name")//
-//						,rs.getString("teacher_sex"), rs.getString("teacher_uni")
-//						,rs.getString("course")));
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		} finally {
-//			disconnect();
-//		}
-//		return list1;
-//	}
 	
+	//강사 조회
+	public List<Teacher> teacherInfo(){
+		conn = getConnect();
+		List<Teacher> list1 = new ArrayList<>();
+
+		try {
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select * from teachers");
+			while (rs.next()) {
+				list1.add(new Teacher(rs.getString("teacher_name")//
+						,rs.getString("teacher_sex"), rs.getString("teacher_uni")
+						,rs.getString("course")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return list1;
+	}
+	
+	//강사 상세조회
+	
+	public Teacher getTeacher(String tName) {
+		String sql = "select * from teachers where teacher_name = ?";
+		conn = getConnect();
+		Teacher tea = null;
+
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, tName);
+			rs = psmt.executeQuery(); // 담겨져있는 값을 하나 읽어오겠습니다
+			if (rs.next()) {
+				tea = new Teacher(rs.getString("teacher_name")//
+						,rs.getString("teacher_sex"), rs.getString("teacher_uni")
+						,rs.getString("course"));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+
+		return tea;
+	}
 	
 	//수정
 	public void update(Swim sw) {
@@ -155,6 +180,7 @@ public class SwimDAO extends DAO {
 		}
 		
 	}
+
 	
 	//삭제
 	
@@ -176,6 +202,69 @@ public class SwimDAO extends DAO {
 		return false;
 	}
 	
-	//강사 평가
 	
+	//강사 평가
+	//강사평가 달기
+	public void reply(Reply rep) {
+		String sql = "insert into teacher_reply (course, teacher_name, rep_content, user_name)\r\n"
+				+ "values("
+				+ "'"+rep.getCourse() + "', '"
+				+ rep.gettName() + "', '"
+				+ rep.getContent() +"', '"
+				+ rep.getUserName() + "')";
+		System.out.println(sql);
+		conn = getConnect();
+		try {
+			stmt = conn.createStatement();
+			int r = stmt.executeUpdate(sql);
+			System.out.println(r+ "건 입력됨");
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+	}
+	
+	//강사평 조회
+	public List<Reply> repSearch(String tName){
+		String sql = "select * from teacher_reply where teacher_name = ? ";
+		conn = getConnect();
+		List<Reply> rep = new ArrayList<>();
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, tName);
+			
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				rep.add(new Reply(rs.getString("course")//
+						,rs.getString("teacher_name")
+						,rs.getString("rep_content")
+						,rs.getString("user_name")));
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+		return rep;
+	}
+	
+	//강사평 삭제
+	public boolean repDelete (String userName) {
+		String sql = "delete from teacher_reply where user_name = ? ";
+		conn = getConnect();
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userName);
+			int r = psmt.executeUpdate();
+			if(r > 0) {
+				return true;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+		return false;
+	}
 }//end of Class();
