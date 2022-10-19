@@ -22,7 +22,7 @@ public class MailApp {
 
 //		String subject = "Hello JavaMail API Test";
 		String fromMail = from;// "cholee@yedam.ac";
-		String fromName = "java";
+		String fromName = "대구수영장";
 		String toMail = to;// "leadon@naver.com"; // 콤마(,) 나열 가능
 
 		// mail contents

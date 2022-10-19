@@ -1,22 +1,31 @@
 package SwimmingManagement;
 
 public class Reply {
-
+	private int repNum;
 	private String course;
 	private String tName;
 	private String content;
 	private String userName;
 	
 	
-	public Reply(String course, String tName, String content, String userName) {
+	public Reply(int repNum, String course, String tName, String content, String userName) {
 		super();
+		this.repNum = repNum;
 		this.course = course;
 		this.tName = tName;
 		this.content = content;
 		this.userName = userName;
 	}
 
+	
+	public int getRepNum() {
+		return repNum;
+	}
 
+
+	public void setRepNum(int repNum) {
+		this.repNum = repNum;
+	}
 
 
 	public String getCourse() {
@@ -61,6 +70,6 @@ public class Reply {
 	@Override
 	public String toString() {
 		
-		return course + "코스 " + "강사 이름:"+tName+" 평가내용:"+content+" 작성자:"+userName;
+		return "번호:"+repNum + " " + "강사명:"+tName+"("+course+")"+" 평가내용:"+content+" 작성자:"+userName;
 	}
 }
