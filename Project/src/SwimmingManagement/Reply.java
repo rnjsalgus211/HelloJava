@@ -70,6 +70,6 @@ public class Reply {
 	@Override
 	public String toString() {
 		
-		return "번호:"+repNum + " " + "강사명:"+tName+"("+course+")"+" 평가내용:"+content+" 작성자:"+userName;
+		return "[번호:"+repNum + "] [강사명:"+tName+"("+course+")"+"] [작성자:"+userName+"]  [평가내용:"+content+"]";
 	}
 }

@@ -16,7 +16,6 @@ public class SwimDAO extends DAO {
 				+ "', '" + login.getPasswd()//
 				+ "', '" + login.getUserName()//
 				+ "', '" + login.getUserEmail() + "')";//
-		System.out.println(sql);
 		conn = getConnect();
 
 		try {
@@ -29,6 +28,12 @@ public class SwimDAO extends DAO {
 			disconnect();
 		}
 
+	}
+	
+	//이메일
+	public void email(String mail) {
+		//?
+		
 	}
 	
 	// 회원탈퇴
@@ -74,6 +79,27 @@ public class SwimDAO extends DAO {
 		}
 		return log;
 	}
+	//회원조회2
+	public Login getName(String userName) {
+		String sql = "select * from users where user_name = ?";
+		conn = getConnect();
+		
+		Login log = null;
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, userName);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				log = new Login(rs.getString("id"), rs.getString("passwd"),
+						rs.getString("user_name"), rs.getString("user_email"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return log;
+	}
 
 	
 	// 로그인
@@ -106,7 +132,6 @@ public class SwimDAO extends DAO {
 		String sql = "insert into userInfo (user_seq, user_name, user_age, user_phone, course, creation_date)\r\n"
 				+ "values(user_sequ.nextval, '" + sw.getUserName() + "', '" + sw.getUserAge() + "', '"
 				+ sw.getPhoneNum() + "', '" + sw.getCourse() + "', sysdate)";
-		System.out.println(sql);
 		conn = getConnect();
 		try {
 			stmt = conn.createStatement();
@@ -121,7 +146,7 @@ public class SwimDAO extends DAO {
 
 	}
 
-	// 조회
+	// 회원전체조회
 	public List<Swim> search() {
 		conn = getConnect();
 		List<Swim> list = new ArrayList<>();
@@ -141,7 +166,7 @@ public class SwimDAO extends DAO {
 		return list;
 	}
 
-	// 상세조회
+	// 회원상세조회
 	public Swim getNum(int userSeq) {
 		String sql = "select * from userInfo where user_seq= ?";
 		conn = getConnect();
@@ -162,7 +187,8 @@ public class SwimDAO extends DAO {
 		return sw;
 	}
 	
-	public Swim getNum2(String userName) {
+	//회원상세조회2
+	public Swim getName2(String userName) {
 		String sql = "select * from userInfo where user_name= ?";
 		conn = getConnect();
 		Swim sw1 = null;
@@ -353,4 +379,5 @@ public class SwimDAO extends DAO {
 		}
 		return false;
 	}
+	
 }// end of Class();

@@ -53,7 +53,7 @@ public class Login {
 	}
 	
 	public String toDetail() {
-		return "로그인정보: [Id=" + userId + ", 이름=" +userName + ", 이메일=" + userEmail +"]";
+		return "[ID:" + userId + "] [이름: " +userName + "] [이메일:" + userEmail +"]";
 	} 
 	
 }

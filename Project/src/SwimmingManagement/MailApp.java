@@ -17,9 +17,9 @@ public class MailApp {
 		String _email = "rnjsalgus211";
 		String _password = "dnfqjt@z";
 		
-
-		System.out.println("Start JavaMail API Test ~!");
-
+		System.out.println();
+		System.out.println("Loading.......");
+		System.out.println();
 //		String subject = "Hello JavaMail API Test";
 		String fromMail = from;// "cholee@yedam.ac";
 		String fromName = "대구수영장";
@@ -61,7 +61,7 @@ public class MailApp {
 			t.sendMessage(message, message.getAllRecipients());
 			t.close();
 
-			System.out.println("Done Done ~!");
+			System.out.println("이메일 전송이 완료되었습니다.");
 			return "Success";
 		} catch (Exception e) {
 			e.printStackTrace();

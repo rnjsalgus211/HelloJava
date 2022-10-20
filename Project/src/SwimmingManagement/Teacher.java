@@ -49,7 +49,7 @@ public class Teacher {
 	
 	@Override
 	public String toString() {
-		return "강사명:" + tName +" 성별:" + tSex + " 학교 및 학과:" +tUni+ " 담당 반:" +course;
+		return "[강사명:" + tName +"] [성별:" + tSex + "] [담당 반:" +course+"] [학교 및 학과:" +tUni+ "] ";
 	}
 	
 }

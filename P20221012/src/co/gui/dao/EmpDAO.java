@@ -7,27 +7,46 @@ import java.util.List;
 public class EmpDAO extends DAO { //데이터베이스에 접근해서 여러가지 작업
 	
 	// 입력
-	public void insertEmp(EmployeeVO vo) {
+	public EmployeeVO insertEmp(EmployeeVO vo) { //매개값으로 입력받았던 EmployeeVO에다가 시퀀스값을 받아서 리턴하겠습니다.
 		getConnect();
-		String sql = "insert into empl (employee_id, frist_name, last_name, email, hire_date, job_id) "
-				+ "values(employees_seq.nextval, ?,?,?,?,?)";
+		
+		String seq = "select employees_seq.nextval from dual"; //새로운 시퀀스값을 가져올 쿼리.
+		
+		
+		String sql = "insert into empl (employee_id, first_name, last_name, email, hire_date, job_id) "
+				+ "values(?,?,?,?,?,?)";
 		
 		try {
+			//시퀀스를 가져오기 위한 쿼리를 먼저 실행
+			int seqInt = 0;
+			psmt = conn.prepareStatement(seq);
+			rs = psmt.executeQuery();
+			if (rs.next()) {
+				seqInt = rs.getInt(1); //첫번째 칼럼을 가져오겠습니다.
+				
+			}
+			//----------------------------------
+			
+			//insert 작업.
 			psmt = conn.prepareStatement(sql);
-			psmt.setString(1, vo.getFristName());
-			psmt.setString(2, vo.getLastName());
-			psmt.setString(3, vo.getEmail());
-			psmt.setString(4, vo.getHireDate());
-			psmt.setString(5, vo.getJobId());
+			psmt.setInt(1, seqInt); 
+			psmt.setString(2, vo.getFristName());
+			psmt.setString(3, vo.getLastName());
+			psmt.setString(4, vo.getEmail());
+			psmt.setString(5, vo.getHireDate());
+			psmt.setString(6, vo.getJobId());
 			int r = psmt.executeUpdate(); //쿼리를 실행해서 처리된 건수를 반환 (인트타입)
 			System.out.println(r + "건 입력됨.");
 			
-			
+			// 새롭게 입력하게된 사원번호를 알고싶을때.
+			vo.setEmployeeId(seqInt);
+	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			disconnect();
 		}
+		return vo;
 	}
 	// 삭제
 	public void deleteEmp(int employeeId) {

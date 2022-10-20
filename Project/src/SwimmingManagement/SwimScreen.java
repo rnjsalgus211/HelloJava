@@ -1,4 +1,4 @@
-package co.gui.dao;
+package SwimmingManagement;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
@@ -18,10 +18,10 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 //화면 만들기
-public class EmpScreen extends JFrame implements ActionListener, MouseListener {
+public class SwimScreen extends JFrame implements ActionListener, MouseListener {
 
 	// 입력 항목을 처리 하기 위한 컴포넌트
-	private String[] labels = { "사원번호", "이름", "성씨", "이메일", "입사일자", "직무" };
+	private String[] labels = { "회원번호", "이름", "나이 및 성별", "휴대폰번호", "코스", "등록일시" };
 	private JTextField[] fields = new JTextField[6];
 
 	// 컴포넌트를 배치하기 위한 컨테이너 역할의 패널들
@@ -35,11 +35,11 @@ public class EmpScreen extends JFrame implements ActionListener, MouseListener {
 	// 이벤트를 일으키기 위한 버튼
 	private JButton addBtn, delBtn, findBtn, initBtn;
 
-	EmpDAO dao = new EmpDAO();
-	List<EmployeeVO> list; // 리스트를 처리하기 위한 컬렉션을 미리 선언.
+	SwimDAO2 dao = new SwimDAO2();
+	List<Swim> list; // 리스트를 처리하기 위한 컬렉션을 미리 선언.
 
-	public EmpScreen() {
-		setTitle("사원정보 관리화면");
+	public SwimScreen() {
+		setTitle("회원정보 관리화면");
 		setLayout(new BorderLayout(10, 10));
 
 		// topPanel 추가.
@@ -50,7 +50,7 @@ public class EmpScreen extends JFrame implements ActionListener, MouseListener {
 			topPanel.add(fields[i]);
 		}
 		// centerPanel 추가. 타이틀에 들어갈 내용들
-		String[] headers = { "사원번호", "이름", "성씨", "이메일", "입사일자", "직무" };
+		String[] headers = { "회원번호", "이름", "나이 및 성별", "휴대폰번호", "코스", "등록일시" };
 		DefaultTableModel model = new DefaultTableModel(headers, 0);
 
 		table = new JTable(model);
@@ -97,15 +97,15 @@ public class EmpScreen extends JFrame implements ActionListener, MouseListener {
 		
 		
 		String[] record = new String[6];
-		list = dao.empList(new EmployeeVO(0, fields[1].getText(), null, null, null, fields[5].getText())); // 0이 들어가면 전체 사원을 조회하겠습니다.
+		list = dao.swimList(new Swim(0, fields[1].getText(), null, null, null, null)); // 0이 들어가면 전체 사원을 조회하겠습니다.
 
 		for (int i = 0; i < list.size(); i++) {
-			record[0] = String.valueOf(list.get(i).getEmployeeId()); // 리스트안에 있는 개수만큼 반복해서 배열의 첫번째에는 사원번호를 넣을것이다.
-			record[1] = list.get(i).getFristName();
-			record[2] = list.get(i).getLastName();
-			record[3] = list.get(i).getEmail();
-			record[4] = list.get(i).getHireDate();
-			record[5] = list.get(i).getJobId();
+			record[0] = String.valueOf(list.get(i).getUserSeq()); // 리스트안에 있는 개수만큼 반복해서 배열의 첫번째에는 사원번호를 넣을것이다.
+			record[1] = list.get(i).getUserName();
+			record[2] = list.get(i).getUserAge();
+			record[3] = list.get(i).getPhoneNum();
+			record[4] = list.get(i).getcDate();
+			record[5] = list.get(i).getCourse();
 			model.addRow(record);
 
 		}
@@ -120,9 +120,9 @@ public class EmpScreen extends JFrame implements ActionListener, MouseListener {
 			return; //메소드 종료 
 		}
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		int empId = Integer.parseInt((String) model.getValueAt(selectedRow, 0)); // 선택되어져있는 인덱스값을 기준으로 첫번째(0인덱스, empId)의 값을 가져오겠습니다. 두번째(1인덱스, 이름)
+		int userSeq = Integer.parseInt((String) model.getValueAt(selectedRow, 0)); // 선택되어져있는 인덱스값을 기준으로 첫번째(0인덱스, empId)의 값을 가져오겠습니다. 두번째(1인덱스, 이름)
 
-		dao.deleteEmp(empId);
+		dao.deleteSwim(userSeq);
 		
 		model.removeRow(selectedRow); //화면에서 삭제.
 		
@@ -137,9 +137,9 @@ public class EmpScreen extends JFrame implements ActionListener, MouseListener {
 		for(int i=0; i<fields.length; i++) {
 			records[i] = fields[i].getText();
 		}
-		EmployeeVO emp = new EmployeeVO(0, records[1], records[2], records[3], records[4], records[5]);
-		dao.insertEmp(emp);
-		records[0] = String.valueOf(emp.getEmployeeId()); //인트타입을 스트링 타입으로 바꾸겠습니다.
+		Swim swim = new Swim(0, records[1], records[2], records[3], records[4], records[5]);
+		dao.insertSwim(swim);
+		records[0] = String.valueOf(swim.getUserSeq()); //인트타입을 스트링 타입으로 바꾸겠습니다.
 		
 		model.addRow(records); //매개값이 배열로 들어감.
 		
@@ -170,7 +170,7 @@ public class EmpScreen extends JFrame implements ActionListener, MouseListener {
 
 	// 프로그램의 시작
 	public static void main(String[] args) {
-		new EmpScreen();
+		new SwimScreen();
 	}
 
 	@Override

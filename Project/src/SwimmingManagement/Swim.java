@@ -82,13 +82,13 @@ public class Swim {
 	
 	@Override //번호, 이름, 성별, 등록일시, 반
 	public String toString() {
-		return "회원번호:" +userSeq+" 회원이름:" +userName + " 성별 및 나이:" + userAge+ " 소속 반:" + course+ " 등록일시:" +cDate; 
+		return "[회원번호:" +userSeq+"] [회원이름:" +userName + "] [성별 및 나이:" + userAge+ "] [소속 반:" + course+ "] [등록일시:" +cDate+"]"; 
 	}
 	
 	public String toDetail() {
-		return "회원번호:" +userSeq+" 회원이름:" +userName + " 성별 및 나이:" +userAge 
-				+ " 전화번호:" +phoneNum+ " 등록일시:" +cDate
-				+" 소속 반:" + course; 
+		return "[회원번호:" +userSeq+"] [회원이름:" +userName + "] [성별 및 나이:" +userAge 
+				+ "] [전화번호:" +phoneNum+ "] [등록일시:" +cDate
+				+"] [소속 반:" + course+"]"; 
 	}
 
 }
