@@ -58,7 +58,7 @@ public class SwimDAO extends DAO {
 				
 	}
 	
-	//회원 조회
+	//회원 로그인정보 조회
 	public Login getId(String userId) {
 		String sql = "select * from users where id = ?";
 		conn = getConnect();
@@ -79,7 +79,7 @@ public class SwimDAO extends DAO {
 		}
 		return log;
 	}
-	//회원조회2
+	//회원 로그인정보 조회2
 	public Login getName(String userName) {
 		String sql = "select * from users where user_name = ?";
 		conn = getConnect();

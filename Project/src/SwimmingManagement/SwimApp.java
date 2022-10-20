@@ -316,7 +316,7 @@ public class SwimApp {
 				menu = Integer.parseInt(scn.nextLine());
 			} else {
 				System.out.println("-----------------------------------");
-				System.out.println("       < 회원으로 접속하였습니다. >");
+				System.out.println("       < "+name1+" 회원님 환영합니다. >");
 				System.out.println("-----------------------------------");
 				System.out.println("1.회원조회 2.강사조회 3.강사평가조회 4.종료");
 				menu1 = Integer.parseInt(scn.nextLine());
@@ -327,8 +327,15 @@ public class SwimApp {
 					System.out.println("         < 회원 목록입니다. >");
 					System.out.println("----------------------------------");
 					List<Swim> swimUser = swimDao.search();
-					for (Swim swim1 : swimUser) {
-						System.out.println(swim1);
+					for(int i=0; i<swimUser.size(); i++) {
+						Swim a = swimUser.get(i);
+						String userName = a.getUserName();
+						userName =userName.substring(0, 1);
+
+						System.out.println("[회원번호:"+a.getUserSeq()+"] [회원이름:"+userName+"**"//
+											+"] [성별 및 나이:"+a.getUserAge()+"] [소속 반:"+a.getCourse()
+											+"] [등록일시:"+a.getcDate()+"]");
+						
 					}
 
 					// 강사조회 및 강사평가
@@ -348,15 +355,18 @@ public class SwimApp {
 						System.out.println("----------------------------------");
 						System.out.println("       어떤 강사를 평가하시겠습니까?");
 						System.out.println("----------------------------------");
+						
 						String tName = scn.nextLine();
 						Teacher t = swimDao.getTeacher(tName);
-
+						Swim u = swimDao.getName2(name1);
+						
 						if (t != null) {
+							if(t.getCourse().equals(u.getCourse())) {
 							if (tName.equals(t.gettName())) {
 								System.out.println("----------------------------------");
 								System.out.println("평가 내용을 입력하세요.");
 								String content = scn.nextLine();
-								System.out.println("작성자 이름을 입력하세");
+								System.out.println("작성자 이름을 입력하세요.");
 								System.out.println("----------------------------------");
 								String userName = scn.nextLine();
 								Swim t1 = swimDao.getName2(userName);
@@ -372,6 +382,9 @@ public class SwimApp {
 								}else {
 									System.out.println("로그인 정보와 일치하지 않습니다.");
 								}
+							}
+							}else {
+								System.out.println("해당 반의 학생이 아닙니다.");
 							}
 						} else if (t == null) {
 							System.out.println("강사 이름을 확인하세요.");
@@ -466,8 +479,8 @@ public class SwimApp {
 						}
 						swim = new Swim(0, userName, userAge, phoneNum, course, null);
 						swimDao.insert(swim);
-						System.out.println("회원정보가 등록되었습니다.");
 						System.out.println("-----------------------------------");
+						System.out.println("회원정보가 등록되었습니다.");
 					} else {
 						System.out.println("휴대폰 번호를 올바르게 입력하세요. ");
 						continue;
@@ -484,6 +497,7 @@ public class SwimApp {
 				for (Swim swim1 : swimUser) {
 					System.out.println(swim1);
 				}
+
 
 				// 상세조회
 			} else if (menu == 3) {
@@ -540,6 +554,8 @@ public class SwimApp {
 					} else if (answer1.equals("N")) {
 						System.out.println("처음메뉴로 돌아갑니다.");
 						continue;
+					}else {
+						System.out.println("잘못된 응답입니다.");
 					}
 				} else {
 					System.out.println("회원번호를 확인하세요.");
@@ -551,7 +567,6 @@ public class SwimApp {
 				List<Swim> swimUser = swimDao.search();
 				for (Swim swim1 : swimUser) {
 					System.out.println(swim1);
-					System.out.println("----------------------------------");
 				}
 				System.out.println("----------------------------------");
 				System.out.println("  < 정보를 삭제할 회원 번호를 입력하세요. >");
