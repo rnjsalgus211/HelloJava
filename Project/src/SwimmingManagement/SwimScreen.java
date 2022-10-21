@@ -78,7 +78,7 @@ public class SwimScreen extends JFrame implements ActionListener, MouseListener 
 		add("Center", centerPanel);
 		add("East", rightPanel);
 
-		setSize(620, 500);
+		setSize(800, 500);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setVisible(true);
