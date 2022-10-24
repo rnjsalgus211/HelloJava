@@ -21,6 +21,7 @@ public class AddMemberServ extends HttpServlet {
 
 	}
 
+	//get 방식의 요청. (method="get")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) //response 응답하는 정보
 			throws ServletException, IOException {
 		
@@ -57,11 +58,14 @@ public class AddMemberServ extends HttpServlet {
 		
 
 	}
-
+	//post방식의 요청이 들어 올 경우 실행하는 메소드. (method="post") 요청 방식 구분해서 기억하기. get/post.
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		doGet(request, response);
+		response.setContentType("text/html;charset=UTF-8");
+//		doGet(request, response);
+		PrintWriter out = response.getWriter(); //사용자의 브라우저(출력스트림 생성)
+		out.print("<h3>Post 방식의 요청</h3>");
+		
 	}
 
 }

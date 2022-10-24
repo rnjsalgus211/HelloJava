@@ -6,7 +6,8 @@
 </head>
 <body>
     <!--사원번호, last_name, email, hire_date, job_id-->
-    <form action="../addMemberServlet">
+    <form action="../addMemberServlet" method="post"> <!-- 호출방식을 따로 지정하지 않으면 기본값 (method)은 get방식. ->사용자가 입력한 정보들이 주소입력창에 다 표현이됨. passwd 노출 위험. -->
+    									<!-- 요청방식post >> 사용자가 입력한 값이 노출되지 않음. -->
         <label for="employee_id">사원번호
               <input type="text" name="employee_id" id="employee_id">
         </label><br>

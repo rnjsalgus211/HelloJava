@@ -9,7 +9,6 @@ public class EmpDAO extends DAO { //데이터베이스에 접근해서 여러가
 	// 입력
 	public EmployeeVO insertEmp(EmployeeVO vo) { //매개값으로 입력받았던 EmployeeVO에다가 시퀀스값을 받아서 리턴하겠습니다.
 		getConnect();
-		System.out.println(vo);
 		String seq = "select employees_seq.nextval from dual"; //새로운 시퀀스값을 가져올 쿼리.
 		
 		
@@ -86,12 +85,12 @@ public class EmpDAO extends DAO { //데이터베이스에 접근해서 여러가
 			disconnect();
 		}
 	}
-	//목록
+	//목록조회
 	public List<EmployeeVO> empList(EmployeeVO vo) {
 		List<EmployeeVO> empList = new ArrayList<EmployeeVO>();
 		getConnect();
 		String sql = "select * from empl"//
-				+"    where employee_id = decode(?, 0, employee_id, ?)" // 
+				+"    where nvl(employee_id, 0) = decode(?, 0, nvl(employee_id, 0), ?)" // 
 				+"    and   first_name like '%'||?||'%' "//
 				+"    and   last_name like '%'||?||'%' "//
 				+"    and   email like '%'||?||'%' "//
