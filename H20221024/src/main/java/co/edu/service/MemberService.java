@@ -10,7 +10,7 @@ public interface MemberService {
 	public void modifymember (MemberVO vo); //수정
 	public void removeMember (String id);
 	public MemberVO findMember(String id);
-	public List<MemberVO> memeberList();
+	public List<MemberVO> memberList();
 	
-	
+	public MemberVO login(String id, String passwd); //로그인 처리.
 }

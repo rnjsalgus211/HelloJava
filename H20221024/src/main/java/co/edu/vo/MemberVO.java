@@ -5,6 +5,7 @@ public class MemberVO {
 	private String passwd;
 	private String email;
 	private String name;
+	private String responsibility;
 	
 	
 	public MemberVO() {}  //VO는 Value Of 를 의미.
@@ -13,6 +14,14 @@ public class MemberVO {
 		this.passwd = passwd;
 		this.name = name;
 		this.email = email;
+	}
+	
+	public MemberVO(String id, String passwd, String name, String email, String responsibility ) {
+		this.id = id;
+		this.passwd = passwd;
+		this.name = name;
+		this.email = email;
+		this.responsibility = responsibility;
 	}
 	public String getId() {
 		return id;
@@ -38,10 +47,22 @@ public class MemberVO {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	
+	public String getResponsibility() {
+		return responsibility;
+	}
+	public void setResponsibility(String responsibility) {
+		this.responsibility = responsibility;
+	}
+	
+	
 	@Override
 	public String toString() {
-		return "MemberVO [id=" + id + ", passwd=" + passwd + ", email=" + email + ", name=" + name + "]";
+		return "MemberVO [id=" + id + ", passwd=" + passwd + ", email=" + email + ", name=" + name + ", responsibility="
+				+ responsibility + "]";
 	}
+	
 	
 	
 }
