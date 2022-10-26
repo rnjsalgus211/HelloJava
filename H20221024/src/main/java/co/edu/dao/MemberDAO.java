@@ -56,7 +56,11 @@ public class MemberDAO extends DAO {
 
 	// 수정
 	public void memberUpdate(MemberVO vo) {
-		String sql = "update members " + "set passwd = ?, " + "name = ?, " + "email =? " + "where id = ?";
+		String sql = "update members "//
+					+ "set passwd = ?, "// 
+					+ "name = ?, "// 
+					+ "email =? "// 
+					+ "where id = ?";
 		conn = getConnect();
 		try {
 			psmt = conn.prepareStatement(sql);

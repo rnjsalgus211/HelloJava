@@ -123,20 +123,54 @@ public class BoardDAO extends DAO{
 		
 	}
 	
-//	//수정
-//	public boolean updateBoard(BoardVO vo) {
-//		//처리건수 0이면 false;
-//		String sql = "update tbl_board "
-//				+ "set content = ? where board_no = ?";
-//		
-//		
-//	}
-//	
-//	//삭제
-//	public boolean deleteBoard(int boardNo) {
-//		//처리건수 0이면 false;
-//			
-//	}
+	//수정
+	public boolean updateBoard(BoardVO vo) {
+		//처리건수 0이면 false;
+		String sql = "update tbl_board "
+				+ "set content = ? where board_no = ?";
+		getConnect();
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getContent());
+			psmt.setInt(2, vo.getBoardNo());
+			
+			int r = psmt.executeUpdate();
+			System.out.println( r +"건 변경됨.");
+			if(r > 0) {
+				return true;
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			disconnect();
+		}
+		return false;
+		
+	}
+	
+	//삭제
+	public boolean deleteBoard(int boardNo) {
+		//처리건수 0이면 false;
+		String sql = "delete from tbl_board where board_no = ? ";
+		getConnect();
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, boardNo);
+			int r = psmt.executeUpdate();
+			if(r > 0) {
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return false;
+			
+	}
 	
 	
 	
