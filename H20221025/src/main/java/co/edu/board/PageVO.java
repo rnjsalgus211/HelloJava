@@ -12,8 +12,11 @@ public class PageVO {
 
 		totalPage = (int) Math.ceil(totalCnt / 10.0); // ceil :올림해줌 51.6 >> 52
 		// startPage, endPage 계산.
-		this.endPage = (int) Math.ceil(this.pageNum / 10.0) * 10; // 10page
-		this.startPage = this.endPage - 9;// 1page
+		this.endPage = (int) Math.ceil(this.pageNum / 10.0) * 10; // 60page
+		this.startPage = this.endPage - 9;// 51page
+		if(this.endPage>totalPage) {
+			this.endPage = totalPage;
+		}
 
 		prev = this.startPage > 10; // 이전페이지.
 		next = this.endPage < totalPage; // 다음페이지.

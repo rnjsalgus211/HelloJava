@@ -3,6 +3,8 @@ package co.edu.service;
 import java.util.List;
 
 import co.edu.board.BoardVO;
+import co.edu.board.FaqVO;
+import co.edu.board.MemberVO;
 import co.edu.dao.BoardDAO;
 
 public class BoardServiceImpl implements BoardService {
@@ -43,6 +45,26 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public BoardVO insertQna(BoardVO vo) {
 		return dao.insertBoard(vo);
+	}
+
+	@Override
+	public MemberVO SignUp(MemberVO vo) {
+		return dao.SignUp(vo);
+	}
+
+	@Override
+	public MemberVO login(String id, String passwd) {
+		return dao.login(id, passwd);
+	}
+
+	@Override
+	public List<MemberVO> memberList() {
+		return dao.memberList();
+	}
+
+	@Override
+	public List<FaqVO> pageFAQ(int page) {
+		return dao.pageFAQ(page);
 	}
 
 }

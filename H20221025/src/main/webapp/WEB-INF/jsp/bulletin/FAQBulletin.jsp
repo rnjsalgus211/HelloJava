@@ -5,7 +5,7 @@
 
 <!-- bulletin/bulletin.tiles -->
 <!-- tiles로 확장자가 끝나야함. -->
-<h3>게시판 페이지입니다.</h3>
+<h3>자주하는질문</h3>
 <table border='1'>
 <thead>
 	<tr>
@@ -18,7 +18,7 @@
 	<tbody>
 		<c:forEach var="vo" items="${bList }">
 			<tr>
-				<td><a href="searchBoard.do?bno=${vo.boardNo }">${vo.boardNo }</a></td>
+				<td><a href="FAQ.do?bno=${vo.FaqNo}">${vo.FaqNo}</a></td>
 				<td>${vo.title }</td>
 				<td>${vo.writer }</td>
 				<td>${vo.writeDate }</td>
@@ -33,21 +33,21 @@ ${page }
 
 <div class='pagination'>
 	<c:if test="${page.prev }">
-		<a href="bulletin.do?page=${page.startPage-1}">&lt;&lt;</a>
+		<a href="FAQBulletin.do?page=${page.startPage-1}">&lt;&lt;</a>
 	</c:if>
 	
 	<c:forEach var="i" begin="${page.startPage }" end="${page.endPage }" step="1">
 		<c:choose>
 			<c:when test="${page.pageNum ==i }">
-				<a  class="active" href="bulletin.do?page=${i }"> ${i }</a>
+				<a  class="active" href="FAQBulletin.do?page=${i }"> ${i }</a>
 			</c:when>
 			<c:otherwise>
-					<a href="bulletin.do?page=${i }"> ${i }</a>
+					<a href="FAQBulletin.do?page=${i }"> ${i }</a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
 
 	<c:if test="${page.next }">
-		<a href="bulletin.do?page=${page.endPage+1}">&gt;&gt;</a>
+		<a href="FAQBulletin.do?page=${page.endPage+1}">&gt;&gt;</a>
 	</c:if>
 </div>

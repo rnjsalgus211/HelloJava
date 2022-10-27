@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import co.edu.board.BoardVO;
+import co.edu.board.FaqVO;
+import co.edu.board.MemberVO;
 import co.edu.common.DAO;
 
 public class BoardDAO extends DAO {
@@ -218,6 +220,46 @@ public class BoardDAO extends DAO {
 		return list;
 	}
 
+	public List<FaqVO> pageFAQ(int page){ // 페이지 수를 적으면 그만큼만 갖고옴
+		getConnect();
+		List<FaqVO> list = new ArrayList<>();
+		String sql = "select b.* "//
+				+ "from (select rownum rn, a.* "//
+				+ "      from   (select * "//
+				+ "              from tbl_FAQ "//
+				+ "              order by FAQ_no desc) a  "//
+				+ "      where rownum <= ?) b "//
+				+ "where b.rn >= ?";
+		
+		int from = (page - 1) * 10 + 1; //1, 11
+		int to = (page * 10); //10, 20
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setInt(1, to); //rownum
+			psmt.setInt(2, from); //b.rn
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				FaqVO board = new FaqVO();
+				board.setFaqNo(rs.getInt("FAQ_no"));
+				board.setTitle(rs.getString("title"));
+				board.setContent(rs.getString("content"));
+				board.setWriter(rs.getString("writer"));
+				board.setWriteDate(rs.getString("write_date"));
+				board.setClickCnt(rs.getInt("click_cnt"));
+				board.setImage(rs.getString("image"));
+				
+				list.add(board);				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return list;
+	}
+	
 	//qna 테이블 글 등록
 	public BoardVO insertQna(BoardVO vo) {
 		// 입력 처리중에 에러가 발생하면 .. null!
@@ -256,5 +298,102 @@ public class BoardDAO extends DAO {
 		return null; //실패할 경우에는 null을 반환.
 
 	}
+	//회원가입
+	public MemberVO SignUp(MemberVO vo) {
+		// 입력 처리중에 에러가 발생하면 .. null!
+		getConnect();
+		String sql = "insert into members (id, passwd, name, email, responsibility) " + "values (?, ?, ?, ?, ?)";
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getId());
+			psmt.setString(2, vo.getPasswd());
+			psmt.setString(3, vo.getName());
+			psmt.setString(4, vo.getEmail());
+			psmt.setString(5, vo.getRespons());
+			
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 입력됨.");
+			if (r > 0) {
+				return vo;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return null;
+	}
+
+	//로그인
+	public MemberVO login(String id, String passwd) {
+		String sql = "select * from members where id = ? and passwd = ?";
+		getConnect();
+		
+		try {
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			psmt.setString(2, passwd);
+			
+			rs = psmt.executeQuery();
+			
+			if(rs.next());
+				MemberVO vo = new MemberVO();
+				vo.setId(rs.getString("id"));
+				vo.setPasswd(rs.getString("passwd"));
+				vo.setName(rs.getString("name"));
+				vo.setEmail(rs.getString("email"));
+				vo.setRespons(rs.getString("responsibility"));
+				return vo;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return null;
+		
+	}
+	
+	//회원목록출력하기 for member/memberList.jsp에서 jstl 이용.
+	public List<MemberVO> memberList(){
+		List<MemberVO> list = new ArrayList<>();
+		getConnect();
+		String sql = "select * from members";
+		
+		try {
+			psmt=conn.prepareStatement(sql);
+			rs = psmt.executeQuery();
+			while(rs.next()) {
+				MemberVO vo = new MemberVO();
+				vo.setId(rs.getString("id"));
+				vo.setPasswd(rs.getString("passwd"));
+				vo.setName(rs.getString("name"));
+				vo.setEmail(rs.getString("email"));
+				
+				list.add(vo);
+			
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
