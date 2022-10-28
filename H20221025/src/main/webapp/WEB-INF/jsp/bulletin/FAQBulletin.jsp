@@ -16,7 +16,7 @@
 	</tr>
 	</thead>
 	<tbody>
-		<c:forEach var="vo" items="${bList }">
+		<c:forEach var="vo" items="${fList }">
 			<tr>
 				<td><a href="FAQ.do?bno=${vo.FaqNo}">${vo.FaqNo}</a></td>
 				<td>${vo.title }</td>

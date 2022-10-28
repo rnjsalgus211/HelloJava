@@ -67,4 +67,15 @@ public class BoardServiceImpl implements BoardService {
 		return dao.pageFAQ(page);
 	}
 
+	@Override
+	public MemberVO getInfo(String id) {
+		return dao.getInfo(id);
+	}
+
+	@Override
+	public boolean update(MemberVO vo) {
+		return dao.update(vo);
+		
+	}
+
 }

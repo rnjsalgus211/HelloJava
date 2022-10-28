@@ -28,7 +28,7 @@ public class FAQ implements Control {
 		BoardService service = new BoardServiceImpl();
 //		List<BoardVO> list = service.getList(new BoardVO(0, "", "", "", "", 0, ""));
 		List<FaqVO> list = service.pageFAQ(pg);
-		req.setAttribute("bList", list);
+		req.setAttribute("fList", list);
 		req.setAttribute("page", paging);
 		
 		HttpUtil.forward(req, resp, "bulletin/FAQBulletin.tiles");

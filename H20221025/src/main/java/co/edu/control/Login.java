@@ -22,7 +22,7 @@ public class Login implements Control {
 		//로그인 성공했습니다.
 		String id = req.getParameter("id");
 		String pw = req.getParameter("passwd");
-		
+		System.out.println(id);
 		BoardService service = new BoardServiceImpl();
 		MemberVO result = service.login(id, pw);
 		

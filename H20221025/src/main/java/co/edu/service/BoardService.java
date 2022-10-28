@@ -21,5 +21,9 @@ public interface BoardService {
 	//페이지 기능.
 	public List<BoardVO> pageList(int page);
 	public List<FaqVO> pageFAQ(int page); //FAQ 목록
+	
+	//비밀번호 찾기
+	public MemberVO getInfo(String id); //로그인 한 정보 가져오기
+	public boolean update(MemberVO vo);
 
 }

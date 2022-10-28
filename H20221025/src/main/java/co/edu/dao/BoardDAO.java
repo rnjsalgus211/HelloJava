@@ -383,17 +383,60 @@ public class BoardDAO extends DAO {
 		return list;
 	}
 	
+	//아이디를 받아서 회원 목록 출력하기.
 	
+	public MemberVO getInfo(String id){
+		getConnect();
+		String sql = "select * from members where id = ? ";
+		MemberVO member = null;
+		try {
+			psmt=conn.prepareStatement(sql);
+			psmt.setString(1, id);
+			rs = psmt.executeQuery();
+			if(rs.next()) {
+				member = new MemberVO(rs.getString("id")
+						,rs.getString("passwd")
+						,rs.getString("name") 
+						,rs.getString("email")
+						,rs.getString("responsibility"));
+				return member;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		
+		return null;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	// 수정
+	public boolean update(MemberVO vo) {
+		String sql = "update members " + " set passwd = ? " + " where id = ?";
+		conn = getConnect();
+		
+		try {
+		
+			psmt = conn.prepareStatement(sql);
+			psmt.setString(1, vo.getPasswd());
+			psmt.setString(2, vo.getId());
+			
+			
+			int r = psmt.executeUpdate();
+			System.out.println(r + "건 변경됨.");
+			
+			if(r >0) {
+			return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return false;
+	}
 }
+	
+	
+	
+

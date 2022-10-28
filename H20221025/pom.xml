@@ -48,7 +48,7 @@
 			<artifactId>cos</artifactId>
 			<version>05Nov2002</version>
 		</dependency>
-		
+
 		<!-- JSTL 관련 -->
 		<dependency>
 			<groupId>org.apache.taglibs</groupId>
@@ -60,8 +60,16 @@
 			<artifactId>taglibs-standard-impl</artifactId>
 			<version>1.2.5</version>
 		</dependency>
-		
-		
+
+		<!-- 메일 -->
+		<!-- https://mvnrepository.com/artifact/javax.mail/javax.mail-api -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+
+
 
 	</dependencies>
 
