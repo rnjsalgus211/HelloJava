@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>memberAdd.html</title>
+</head>
+<body>
+	<h3>회원등록 페이지.</h3>
+	<form name="submitFrm" action="" method="post">
+	  id: <input type="text" id="id"><br>
+	  pass: <input type="text" id="passwd"><br>
+	  email: <input type="text" id="email"><br>
+	  name: <input type="text" id="name"><br>
+	  <input type="submit" value="등록">
+	</form>
+	<form name="secondFrm"></form>
+	
+	<script>
+		document.forms.submitFrm.action = "../index.html";
+		//submitFrm.method = 'get'; //document.forms를 생략해도된다.
+		document.forms.submitFrm.onsubmit = function(e){ //submitFrm에 onsubmit이벤트가 발생하면 함수를 실행하세요.
+			e.preventDefault(); //없으면 페이지가 넘어가버림.(servlet의 기본기능.), 있는경우 그 페이지에 머물게해줌.
+			console.log('hhhh');
+			let id = document.getElementById('id').value;
+			let pw = document.getElementById('passwd').value;
+			let email = document.getElementById('email').value;
+			let name = document.getElementById('name').value;
+			let check = id && pw && email && name; //변수에 값이 있으면 boolean타입으로 true. 없으면 false.
+			if(!check){
+				alert('필수항목입니다.')
+				return false; //리턴 구문 만나면 함수 끝. 아래 실행 X
+			}
+			let data = 'id='+id+'&passwd='+pw+'&email='+email+'&name='+name; //&기호로 여러개의 parameter값 구분해서 넘김.
+			//submitFrm.submit();	
+			let ajax = new XMLHttpRequest();
+			ajax.open('post', '../MemberListServlet'); //페이지만 지정.
+			ajax.setRequestHeader('Content-type', 'application/x-www-form-urlencoded'); //키 밸류 형식으로 값을 넘기겠습니다.application/x-www-form-urlencoded
+			ajax.send(data); //send()가 호출되어야 실제로 실행.
+			ajax.onload = function() {
+				console.log(ajax.responseText)
+				let data = JSON.parse(ajax.responseText);
+				let pTag = document.createElement('p');
+				pTag.textContent = '아이디: '+ data.id + ', 이름: ' + data.name; //값을 바로 넣어도됨.
+				
+				secondFrm.after(pTag); //after는 동생(하위가 아니라 그 다음에 생성.) append로 적용하면 하위(자식)요소로 생성.
+				}
+			
+		}
+	</script>
+</body>
+</html>

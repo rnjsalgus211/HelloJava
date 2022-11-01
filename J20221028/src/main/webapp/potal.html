@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<div id="show">
+	  <table border="1">
+	  	<thead>
+	  	  <tr><th>센터ID</th><th>센터명</th><th>연락처</th></tr>
+	  	</thead>
+	  	<tbody id="list">
+	  	</tbody>
+	  </table>
+	</div>
+	
+	<script>
+	let url = 'https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&returnType=JSON&serviceKey=ZxvJgLlAle0lD0G7vxDtPmaOhN4C8gQpC4Bc%2FLsMlmFaCLnN%2FpuUTrE43MCE%2B57El9AD8u6UcqcKOIGH736HeA%3D%3D';
+	
+	fetch(url)
+	.then( result => result.json()) //json -> object
+	.then( showList )
+	.catch( error => console.log(error) );
+	
+	function showList(result){
+		console.log(result) //totalcount.. data... page...
+		result.data.forEach(center => console.log(center.centerName)); //result가 가지고 있는 data속성을 루핑 돌며 출력중.
+		//let data = JSON.parse(this.responseText);
+		let tbody = document.querySelector('#list');
+		result.data.forEach(row => {
+			tbody.append(makeTr(row));
+		})
+		
+	}
+	
+	//찾기 버튼 만들기.
+	let input = document.createElement('input');
+	input.setAttribute("type", "text");
+	
+	
+	function makeTr(center){ //센터정보가 하나 들어오면 센터id,센터명,연락처를 가져올수 있도록
+		let fields = ['id', 'centerName', 'phoneNumber'];
+		let tr = document.createElement('tr');
+		
+		for(let field of fields){ //배열 정보를 하나씩 가져올때는 for of, 오브젝트 안 정보를 가져올 때는 for in
+			let td = document.createElement('td');
+			let txt = document.createTextNode(center[field]);
+			td.append(txt);
+			tr.append(td);
+		}
+		return tr;
+		
+	}
+</script>
+</body>
+</html>
