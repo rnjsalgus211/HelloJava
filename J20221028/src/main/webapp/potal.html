@@ -5,7 +5,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	시도:<input type="text" id="search">
+	<button type="button" id="searchBtn">검색</button>
 	<div id="show">
 	  <table border="1">
 	  	<thead>
@@ -17,6 +18,7 @@
 	</div>
 	
 	<script>
+	
 	let url = 'https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=284&returnType=JSON&serviceKey=ZxvJgLlAle0lD0G7vxDtPmaOhN4C8gQpC4Bc%2FLsMlmFaCLnN%2FpuUTrE43MCE%2B57El9AD8u6UcqcKOIGH736HeA%3D%3D';
 	
 	fetch(url)
@@ -24,9 +26,14 @@
 	.then( showList )
 	.catch( error => console.log(error) );
 	
+	//광역변수
+	let dataAll;
+	
 	function showList(result){
-		console.log(result) //totalcount.. data... page...
-		result.data.forEach(center => console.log(center.centerName)); //result가 가지고 있는 data속성을 루핑 돌며 출력중.
+		//console.log(result) //totalcount.. data... page...
+		
+		dataAll = result.data;
+		//result.data.forEach(center => console.log(center.centerName)); //result가 가지고 있는 data속성을 루핑 돌며 출력중.
 		//let data = JSON.parse(this.responseText);
 		let tbody = document.querySelector('#list');
 		result.data.forEach(row => {
@@ -36,8 +43,13 @@
 	}
 	
 	//찾기 버튼 만들기.
-	let input = document.createElement('input');
-	input.setAttribute("type", "text");
+		document.querySelectorAll('button[type=button]')[0].addEventListener('click', searchFunc);
+	
+		function searchFunc(){
+			document.getElementById
+			console.log('검색버튼');
+			
+		}
 	
 	
 	function makeTr(center){ //센터정보가 하나 들어오면 센터id,센터명,연락처를 가져올수 있도록

@@ -13,4 +13,8 @@ public class MemberVO {
 	private String name;
 	private String email;
 	private String respons;
+	
+	private String title;
+	private String sDate;
+	private String eDate;
 }
