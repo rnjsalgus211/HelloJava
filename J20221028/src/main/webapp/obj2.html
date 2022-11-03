@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+    <style>
+        div{
+            display: inline-block;
+            width: 600px;
+            background-color: green;
+        }
+        p{
+            display: inline-block;
+            width: 100px;
+            background-color: pink;
+            padding: 5px;
+            margin: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    단어입력: <input type="text" id="word"><button id="btn">입력</button><br>
+    <div id="wordlist">
+    </div>
+    <div id="timer"></div>
+    <script>
+    let words = 
+        'Lorem'
+    let wordAry = words.split(' '); //공백을 기준으로 문자열을 배열로 만들겠습니다.
+
+    wordAry.forEach(word=>{ //
+        let pTag = document.createElement('p');
+        pTag.textContent = word;
+        document.getElementById('wordlist').append(pTag);
+    }); 
+
+    //------------단어 입력시 삭제하기
+    document.getElementById('btn').addEventListener('click', removeWord);
+
+    document.querySelector('#word').addEventListener('keyup', (e)=>{
+    if (e.keyCode === 13) {
+        console.log('엔터');
+        removeWord();
+        document.getElementById('word').value = "";
+  }  
+});
+
+    //------------삭제 기능
+    function removeWord(){
+        let pTags = document.querySelectorAll('#wordlist>p');
+        let word = document.getElementById('word').value;
+        console.log(word);    
+    //     for(let i=0; i<pTags.length; i++){
+    //     if(pTags[i].textContent == word){
+    //        pTags[i].remove();
+
+    //     }
+    // }
+        // for(let wd of pTags){
+        //     if(wd.textContent == word){
+        //         wd.remove();
+        //     }
+        // }
+
+        pTags.forEach(p =>{
+            if(word == p.textContent){
+                p.remove();
+            }
+        })
+
+    }
+
+    //-------------타이머
+
+    Date.prototype.timeFormater = function() { //시,분,초만 가지고 오기 위한 메소드를 새로 만듦. / slice(-2): 뒤에서부터 두자리 가지고오겠음 substring과 비슷
+        return ("0" + this.getHours()).slice(-2) + ":" +//
+            ("0" + this.getMinutes()).slice(-2) + ":" +//
+            ("0" + this.getSeconds()).slice(-2);
+    }
+    String.prototype.ltrim = function() {
+
+    }
+
+    setTimeout(function() {}, 5000); //5초있다가 한번만 실행.
+
+    let time = 100;
+
+    let timer1 = setInterval(() => { 
+        console.log(time+'초');
+        let timer = new Date();
+        // document.getElementById('timer').textContent = timer.timeFormater();
+        document.getElementById('timer').textContent = time+'초';
+        //let itmes = document.querySelectorAll('#wordlist>p');
+        //if (!items.length && time){
+        //  alert('success')
+        //  clearInterval(timer1);
+        //}else if(!itmes){
+        //  alert('fail');
+        //  clearInterval(timer1);
+        //}
+
+        if( time -- <= 0){
+            clearInterval(timer1);
+            alert('시간 초과입니다! 실패!')
+
+        }else if (document.querySelector('#wordlist>p') == null){
+            console.log('완료')
+            alert('남은 시간'+time+'초, 성공!')
+            clearInterval(timer1);
+        }
+    }, 1000); //clearInterval 하기 전 까지는 1000ms마다 계속 반복하겠습니다.
+    document.getElementById('word').focus();
+    
+        
+
+    </script>
+</body>
+</html>

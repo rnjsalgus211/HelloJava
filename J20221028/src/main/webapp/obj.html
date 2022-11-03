@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script>
+		let obj = {
+				id: 'hong',
+				age : 20
+		}
+		obj.id;
+		obj['age'];
+		//obj = ['id', 'name', 'age']
+			
+		for (let prop in obj) {
+			console.log(prop, obj[prop]) //obj.prop는 undefined 배열인데 for in 쓰면 인덱스값을 가져옴. (0,1,2) => 배열이면 for of를 써서 값을 가져옴.  
+		}					//obj[prop]는 속성값을 가져오는것. (id의 'hong' age의 '20')
+	</script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+
+    </style>
+    <meta charset="UTF-8">
+    <title>cal.html</title>
+    <script>
+        let obj = {
+            //키, 밸류 값으로 가지고 있음.
+            id: 'hong',
+            age: 20 //이런 모양이면 java에서의 인스턴스처럼 만들어졌구나.라고 생각해야됨
+        }
+        obj = {}; // =new Object(); 오브젝트 선언
+        let ary = []; //= new Array(); 배열 선언.
+        let today = new Date();
+        today.getFullYear(); //오늘 년도
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+            today = new Date(2022, 10, 1);
+
+            let thisDay = today.getDay(); //오늘날짜의 요일정보를 리턴.
+            let lastDate = new Date(2022, 11, 0).getDate();
+            let lastDay = new Date(2022, 10, lastDate).getDay();
+            console.log(lastDate);
+            console.log(thisDay);
+            console.log(lastDay);
+            let table = document.createElement('table');
+            table.setAttribute('border', '1'); //테이블에 border 속성 주기
+
+
+            let tbody = document.createElement('tbody');
+            let tr = document.createElement('tr');
+            tbody.append(tr);
+
+            let td = document.createElement('td');
+            let txt = ['일', '월', '화', '수', '목', '금', '토'];
+
+            txt.forEach(p => {
+                let td = document.createElement('td');
+                td.append(p);
+                tr.append(td);
+            })
+            tr = document.createElement('tr');
+            tbody.append(tr);
+
+
+            //요일지정.
+            for (let i = 0; i < thisDay; i++) {
+                let td = document.createElement('td');
+                tr.append(td);
+            }
+
+            for (let i = 1; i <= lastDate; i++) {
+                //줄바꿈
+                if ((i + thisDay) % 7 == 0) {
+                    let td = document.createElement('td');
+                    td.textContent = i;
+                    tr.append(td);
+                    td.setAttribute('style', 'color:blue');
+                    tr = document.createElement('tr'); //i값을 7로 나눈 나머지가 0일때마다 tr의 값을 새로 만들어 주면
+                    tbody.append(tr);
+
+                } else if ((i + thisDay) % 6 == 0) {
+                    tr.firstChild.setAttribute('style', 'color:red');
+
+                } else {
+                    let td = document.createElement('td');
+                td.textContent = i;
+                tr.append(td);
+                }
+            }
+
+            table.append(tbody)
+            tbody.append(tr);
+            document.getElementById('show').append(table);
+
+
+        })
+    </script>
+</head>
+
+
+<body>
+
+    <div id="show"> </div>
+
+
+</body>
+
+</html>
