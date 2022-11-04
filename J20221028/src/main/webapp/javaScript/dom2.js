@@ -70,11 +70,6 @@ function domLoadedFunc(){
 	thead.appendChild(tr);
 	table.appendChild(thead);
 	
-	
-		
-	
-	
-	
 
 
 	//tbody
@@ -148,13 +143,13 @@ function domLoadedFunc(){
 	function makeTr(row){
 		//데이터 건수만큼 반복.
 		let tr = document.createElement('tr');
-		tr.addEventListener('mouseover', showDetailFunc);
+		// tr.addEventListener('mouseover', showDetailFunc);
 		
 		
-		tr.addEventListener('mouseout', function() {
-			this.style.backgroundColor = null;
+		// tr.addEventListener('mouseout', function() {
+		// 	this.style.backgroundColor = null;
 		
-		});
+		// });
 
 		
 		for (let field of fields){
@@ -183,10 +178,10 @@ function domLoadedFunc(){
 		td.style.textAlign = 'center';
 		let checkbox = document.createElement('input');
 		checkbox.setAttribute("type", "checkbox");
-		checkbox.addEventListener('change', function(){
-			//console.log(this.checked); //체크하면 true, 풀면 false.
+		// checkbox.addEventListener('change', function(){
+		// 	//console.log(this.checked); //체크하면 true, 풀면 false.
 	
-			});
+		// 	});
 			
 		
 		td.appendChild(checkbox);

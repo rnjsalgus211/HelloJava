@@ -34,7 +34,7 @@ public class MemberListServlet extends HttpServlet {
 		List<MemberVO> list = dao.memberList();
 		//[{"id": "user1", "name": "홍길동", "email": "email.com", "responsibility": "user"},{},{}] => 제일 마지막 데이터에는 콤마 없어야됨.
 		//데이터가 3건? 1, 2, 3 방식으로 들어감.(콤마 유의)
-	
+		System.out.println(list);
 //		String json = "[";
 //		for(int i=0; i<list.size(); i++) {
 //			json += "{\"id\": \""+list.get(i).getId() // \이스케이프 문자: 따옴표를 따옴표문자로 처리하겠습니다.(문자열 표기하는 따옴표 X)

@@ -4,6 +4,7 @@ fetch('data/MOCK_DATA.json')
 .then( composeFnc )
 .catch( error => console.error(error) );
 
+console.log(result);
 function composeFnc(result = [] ) { //result = []라고 넣어줘야 배열이라는 것을 인식.
     //급여가 5000이 넘는 사람들만 filter한 후에 새로운 모임을 만들자.
     result.filter( row => row.salary > 5000)
