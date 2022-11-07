@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL"/> <!-- 카멜케이스, 널은 필수 세팅값. 꼭 넣어줘야함 -->
+		<setting name="mapUnderscoreToCamelCase" value="true"/> <!-- 언더바를 카멜케이스로 바꿔주는 세팅 -->
+	</settings>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver" />
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+				<property name="username" value="kmh" />
+				<property name="password" value="kmh" />
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<mapper resource="co/micol/prj/book/mapper/BookMapper.xml" />
+	</mappers>
+</configuration>
