@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="co.micol.prj.book.mapper.BookMapper">
 	<select id="bookSelectList" resultType="co.micol.prj.book.vo.BookVO"> <!-- BookVO 타입만 resultType. -->
-		SELECT * FROM BOOK_INFO
+		SELECT * FROM BOOK_INFO ORDER BY BOOK_CODE DESC
 	</select>
 
 	<select id="bookSelect" resultType="co.micol.prj.book.vo.BookVO">

@@ -14,6 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 import co.micol.prj.book.command.BookList;
 import co.micol.prj.common.Command;
 import co.micol.prj.main.MainCommand;
+import co.micol.prj.member.command.AjaxIdCheck;
+import co.micol.prj.member.command.Logout;
+import co.micol.prj.member.command.MemberJoin;
+import co.micol.prj.member.command.MemberJoinForm;
+import co.micol.prj.member.command.MemberLogin;
+import co.micol.prj.member.command.MemberLoginForm;
 
 /**
  * 모든요청을 받아들이는 컨트롤러.
@@ -31,6 +37,12 @@ public class FrontController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		map.put("/main.do", new MainCommand()); // 처음 보여줄 페이지 명령. (/main.do라고 들어오면) map.put에다가 요청을 쭉 써나가면 됨.
 		map.put("/bookList.do", new BookList()); //책 목록보기
+		map.put("/memberLoginForm.do", new MemberLoginForm()); //로그인 폼 호출
+		map.put("/memberLogin.do", new MemberLogin()); //멤버 로그인 처리
+		map.put("/logout.do", new Logout()); //로그아웃.
+		map.put("/memberJoinForm.do", new MemberJoinForm()); //회원가입
+		map.put("/ajaxIdCheck.do", new AjaxIdCheck()); //ajax를 이용한 아이디 중복 체크
+		map.put("/memberJoin.do", new MemberJoin());   //회원가입
 	}
 	
 
@@ -46,11 +58,19 @@ public class FrontController extends HttpServlet {
 		
 		//인터페이스 개념 중요! (자바는 멀티 상속이안되기때문)
 	
-		
+		//viewResolve파트
 		if(!viewPage.endsWith(".do") && viewPage != null) { //리턴되는 문자열에서 마지막에 .do가 포함되어있지 않다면.
 			//ajax처리 할 곳. : 요청한 페이지에 결과를 주는 것.
+			if(viewPage.startsWith("ajax:")) {
+				response.setContentType("text/html; charset=UTF-8");
+				response.getWriter().append(viewPage.substring(5)); //ajax:까지 자르고 그 뒤가 필요. (결과만 리턴)
+				return;
+			}
+			
 			//tiles 처리 할 곳.
-			viewPage = "/WEB-INF/views/" +viewPage+".jsp";
+			if(!viewPage.endsWith(".tiles")) {
+				viewPage = "/WEB-INF/views/" +viewPage+".jsp";	//타일즈를 안태움?? 무슨말이지		
+			}
 			RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 			dispatcher.forward(request, response); // 값을 실어서 response.request 객체 보냄. (휴대폰 들고 AS센터 감)  값을 가지고 감
 		}else {

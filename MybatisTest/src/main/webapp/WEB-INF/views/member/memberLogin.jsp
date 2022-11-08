@@ -8,7 +8,8 @@
 </head>
 <body>
 	<div align="center">
-	<h1>WellCome To My WebSite</h1>
+		<div><h1>${message }</h1></div>
+		<h3><a href="main.do">홈 가기</a></h3>	
 	</div>
 </body>
 </html>

@@ -21,7 +21,7 @@ public class BookList implements Command {
 		books = dao.bookSelectList();
 		request.setAttribute("books", books);
 		
-		return "book/bookList";
+		return "book/bookList"; //보여줄페이지
 	}
 
 }

@@ -9,9 +9,10 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class DataSource {
+	//싱글톤클래스
 	private static SqlSessionFactory sqlSessionFactory; //Mybatis 사용
 	
-//	private static DataSource dataSource;
+	//private static DataSource dataSource;
 	
 	private DataSource() {} // 생성자를 다른곳에서 생성하지 못하도록 묶어두기
 	
