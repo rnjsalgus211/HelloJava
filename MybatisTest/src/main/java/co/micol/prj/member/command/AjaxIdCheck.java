@@ -15,7 +15,7 @@ public class AjaxIdCheck implements Command {
 		MemberService dao = new MemberServiceImpl();
 		String id = request.getParameter("id"); //"id"변수는 memberLoginForm=> idCheck() 밑에 ajaxIdCheck.do?id 의 id.
 		boolean b = dao.isMemberIdCheck(id); //id값을 넘기면? 존재할경우(false) true & false.
-		String result = "0"; //디폴트가 사용 가능 한 것으로..?
+		String result = "0" +""; //디폴트가 사용 가능 한 것으로..?
 		if(b) { //넘어온 값이 false면. (사용가능하지않으면, 아이디가 중복이면.)
 			result = "1";
 		}

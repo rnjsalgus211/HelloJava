@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="co.newcomers.prj.member.mapper.MemberMapper">
+	<select id="memberList">
+		SELECT * FROM MEMBER
+	</select>
+	
+	<select id="memberSelect" resultType="co.newcomers.prj.member.vo.MemberVO">
+		SELECT * FROM MEMBER WHERE ID = #{id}
+	</select>
+	
+	<insert id="memberInsert">
+		INSERT INTO MEMBER (ID, PASSWORD, NAME, ADDRESS, EMAIL)
+		VALUES (#{id}, #{password}, #{name}, #{address},  #{email})
+	</insert>
+	
+	<delete id="memberDelete">
+		DELETE FROM MEMBER WHERE ID = #{id}
+	</delete>
+	
+	<update id="memberUpdate">
+		UPDATE MEMBER
+		SET PASSWORD = #{password},
+			EMAIL = #{email},
+			NAME = #{name},
+			GRADE = #{grade}
+		WHERE ID = #{id}
+	</update>
+	
+	<select id="memberLogin" resultType="co.newcomers.prj.member.vo.MemberVO">
+		SELECT * FROM MEMBER
+		WHERE ID = #{id} AND PASSWORD = #{password}
+	</select>
+	
+	<select id="isMemberIdCheck" resultType="boolean">
+		SELECT CASE WHEN COUNT(ID) = 1 THEN 0 ELSE 1 END AS ID
+		FROM MEMBER WHERE ID = #{id}
+	</select>
+</mapper>

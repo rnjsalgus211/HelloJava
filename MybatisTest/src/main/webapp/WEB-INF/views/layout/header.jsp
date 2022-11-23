@@ -12,7 +12,7 @@
 	<nav id="topMenu">
 		<ul>
 			<li><a class="menuLink" href="main.do">Home</a></li>	
-			<li><a class="menuLink" href="bookList.do">Book</a></li>
+			<li><a class="menuLink" href="ajaxJquery.do">Book</a></li>
 
 			<li><a class="menuLink" href="#">Content</a></li>
 			

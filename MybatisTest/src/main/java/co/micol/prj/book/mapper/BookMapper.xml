@@ -27,6 +27,4 @@
 		WHERE BOOK_CODE = #{bookCode}
 	</update>
 	
-	
-	
 </mapper>
